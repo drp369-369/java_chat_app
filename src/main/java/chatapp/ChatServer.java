@@ -13,39 +13,36 @@ public class ChatServer {
                 BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
                 PrintWriter out = new PrintWriter(client.getOutputStream(), true);
 
-                // Send welcome message
-                out.println("Welcome!");
+                out.println("Welcome to the Java Chat Server!");
 
                 String msg;
                 while ((msg = in.readLine()) != null) {
                     System.out.println("Received: " + msg);
+                    String lower = msg.trim().toLowerCase();
                     String reply;
-                    String m = msg.trim().toLowerCase();
 
-                    // Basic chatbot replies
-                    if (m.equals("hi") || m.equals("hello")) {
-                        reply = "Hello there! How can I help you today?";
-                    } else if (m.contains("how are you")) {
-                        reply = "I'm doing great! Thanks for asking.";
-                    } else if (m.contains("what is your name")) {
-                        reply = "I'm your friendly Java ChatBot.";
-                    } else if (m.contains("what can you do")) {
-                        reply = "I can chat, answer questions, and make your project look cool!";
-                    } else if (m.contains("who created you")) {
-                        reply = "I was created by a Computer Science student for a Java networking project.";
-                    } else if (m.contains("where are you from")) {
-                        reply = "I live inside your computer on localhost:5000.";
-                    } else if (m.contains("tell me a fact")) {
-                        reply = "Fun fact: The first version of Java was released in 1995!";
-                    } else if (m.contains("bye")) {
-                        reply = "Goodbye! See you soon.";
-                        out.println("Server: " + reply);
+                    if (lower.equals("hi") || lower.equals("hello"))
+                        reply = "Hello! How can I help you today?";
+                    else if (lower.contains("how are you"))
+                        reply = "I'm doing well, thank you for asking!";
+                    else if (lower.contains("what is your name"))
+                        reply = "I'm ChatBot, your Java assistant.";
+                    else if (lower.contains("who created you"))
+                        reply = "I was created as part of a Computer Science networking project.";
+                    else if (lower.contains("what can you do"))
+                        reply = "I can chat with you and make your project presentation more fun!";
+                    else if (lower.contains("tell me a fact"))
+                        reply = "Did you know? The first Java version was released in 1995.";
+                    else if (lower.contains("java"))
+                        reply = "Java is an object-oriented language widely used in backend and Android development.";
+                    else if (lower.contains("bye")) {
+                        reply = "Goodbye! It was nice chatting with you.";
+                        out.println(reply);
                         break;
-                    } else {
-                        reply = "I'm not sure how to respond to that, but it sounds interesting!";
-                    }
+                    } else
+                        reply = "I'm not sure how to respond to that, but it's interesting!";
 
-                    out.println("Server: " + reply);
+                    out.println(reply);
                 }
             }
         } catch (IOException e) {
@@ -53,4 +50,3 @@ public class ChatServer {
         }
     }
 }
-
