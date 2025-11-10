@@ -15,6 +15,8 @@ public class ChatClientGUI extends JFrame {
         setSize(400, 400);
         setLayout(new BorderLayout());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        chatArea.append(" Connected to Chat Server! \nType your message below:\n\n");
+
 
         chatArea.setEditable(false);
         add(new JScrollPane(chatArea), BorderLayout.CENTER);
