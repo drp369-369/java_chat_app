@@ -42,7 +42,7 @@ public class ChatClientGUI extends JFrame {
         add(scrollPane, BorderLayout.CENTER);
 
         // --- Input Panel ---
-        JPanel inputPanel = new JPanel(new BorderLayout(10, 10)); // Increased gap
+        JPanel inputPanel = new JPanel(new BorderLayout(40, 10)); // Increased gap
         inputPanel.setBorder(new EmptyBorder(5, 0, 0, 0)); // Add some top margin
         inputPanel.setBackground(Color.WHITE);
 
