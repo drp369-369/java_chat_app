@@ -41,7 +41,7 @@ public class ChatServer {
                         break;
                     } else
                         reply = "I'm not sure how to respond to that, but it's interesting!";
-
+                     System.out.println("Sending: " + reply);
                     out.println(reply);
                 }
             }
