@@ -1,6 +1,7 @@
 package chatapp;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.*;
 import java.net.*;
@@ -15,29 +16,43 @@ public class ChatClientGUI extends JFrame {
         setTitle("Java Chat Client");
         setSize(480, 520);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null); // Center the window
         setLayout(new BorderLayout(10, 10));
-        getContentPane().setBackground(Color.WHITE);
 
-        // Chat area
+        // Add padding to the entire content pane
+        JPanel contentPane = (JPanel) getContentPane();
+        contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
+        contentPane.setBackground(Color.WHITE);
+
+        // --- Chat Area ---
         chatArea = new JTextArea();
         chatArea.setEditable(false);
         chatArea.setLineWrap(true);
         chatArea.setWrapStyleWord(true);
-        chatArea.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        chatArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        chatArea.setBackground(new Color(250, 250, 250));
+        chatArea.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        // Use a softer background color
+        chatArea.setBackground(new Color(245, 245, 245)); 
+        // Add internal padding to the text area
+        chatArea.setBorder(new EmptyBorder(10, 10, 10, 10)); 
         chatArea.append("Connected to Chat Server!\nType your message below:\n\n");
 
         JScrollPane scrollPane = new JScrollPane(chatArea);
+        // Remove the default border from the scroll pane
+        scrollPane.setBorder(BorderFactory.createEmptyBorder()); 
         add(scrollPane, BorderLayout.CENTER);
 
-        // Input panel
-        JPanel inputPanel = new JPanel(new BorderLayout(5, 5));
-        inputPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        // --- Input Panel ---
+        JPanel inputPanel = new JPanel(new BorderLayout(10, 10)); // Increased gap
+        inputPanel.setBorder(new EmptyBorder(5, 0, 0, 0)); // Add some top margin
         inputPanel.setBackground(Color.WHITE);
 
         inputField = new JTextField();
         inputField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        // Add internal padding to the text field
+        inputField.setBorder(BorderFactory.createCompoundBorder(
+            inputField.getBorder(), 
+            new EmptyBorder(5, 8, 5, 8))
+        );
         inputPanel.add(inputField, BorderLayout.CENTER);
 
         sendButton = new JButton("Send");
@@ -46,6 +61,8 @@ public class ChatClientGUI extends JFrame {
         sendButton.setForeground(Color.WHITE);
         sendButton.setFocusPainted(false);
         sendButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        // Add padding to the button to make it larger
+        sendButton.setBorder(new EmptyBorder(8, 18, 8, 18)); 
         inputPanel.add(sendButton, BorderLayout.EAST);
 
         add(inputPanel, BorderLayout.SOUTH);
@@ -66,17 +83,26 @@ public class ChatClientGUI extends JFrame {
                 try {
                     String msg;
                     while ((msg = in.readLine()) != null) {
-                        chatArea.append("Server: " + msg + "\n");
+                        final String finalMsg = msg;
+                        // IMPORTANT: Update UI on the Event Dispatch Thread (EDT)
+                        SwingUtilities.invokeLater(() -> {
+                            chatArea.append("Server: " + finalMsg + "\n");
+                        });
                     }
                 } catch (IOException e) {
-                    chatArea.append("Disconnected from server.\n");
+                    SwingUtilities.invokeLater(() -> {
+                        chatArea.append("Disconnected from server.\n");
+                    });
                 }
             });
             readThread.setDaemon(true);
             readThread.start();
 
         } catch (Exception e) {
-            chatArea.append("Cannot connect to server.\n");
+            // Also update UI on the EDT
+            SwingUtilities.invokeLater(() -> {
+                chatArea.append("Cannot connect to server.\n");
+            });
         }
     }
 
@@ -94,6 +120,18 @@ public class ChatClientGUI extends JFrame {
     }
 
     public static void main(String[] args) {
+        try {
+            // Set the native system Look and Feel
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Enable anti-aliased text
+        System.setProperty("awt.useSystemAAFontSettings", "on");
+        System.setProperty("swing.aatext", "true");
+
+        // Run the GUI on the Event Dispatch Thread
         SwingUtilities.invokeLater(() -> {
             ChatClientGUI client = new ChatClientGUI();
             client.setVisible(true);
