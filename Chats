@@ -1,0 +1,638 @@
+Git & GitHub Lab Programs — Step-by-Step Guide
+
+Prerequisites
+
+Install:
+
+Git
+
+A GitHub account
+
+
+Verify Git installation:
+
+git --version
+
+Configure Git (first time only):
+
+git config --global user.name "Your Name"
+git config --global user.email "your-email@example.com"
+
+
+---
+
+1. Initialize a new Git repository in a folder named practice-repo and make your first commit
+
+Step 1: Create folder
+
+mkdir practice-repo
+cd practice-repo
+
+Step 2: Initialize Git repository
+
+git init
+
+Explanation:
+
+Creates a hidden .git folder
+
+Git now starts tracking this project
+
+
+
+---
+
+Step 3: Create a sample file
+
+echo "Hello Git" > sample.txt
+
+
+---
+
+Step 4: Check status
+
+git status
+
+You will see:
+
+sample.txt
+
+as an untracked file.
+
+
+---
+
+Step 5: Add file to staging area
+
+git add sample.txt
+
+
+---
+
+Step 6: Commit the file
+
+git commit -m "First commit"
+
+Explanation:
+
+-m means commit message
+
+
+
+---
+
+Step 7: Verify commit
+
+git log
+
+
+---
+
+2. Create a local project, connect it to a newly created GitHub repository, and push the project files
+
+Step 1: Create project folder
+
+mkdir myproject
+cd myproject
+git init
+
+
+---
+
+Step 2: Create files
+
+echo "My Project" > README.md
+
+
+---
+
+Step 3: Add and commit
+
+git add .
+git commit -m "Initial project commit"
+
+
+---
+
+Step 4: Create repository on GitHub
+
+Go to:
+
+GitHub New Repository Page
+
+Create repository:
+
+Repository Name: myproject
+
+Keep it Public or Private
+
+
+Do NOT initialize with README.
+
+
+---
+
+Step 5: Connect local repo to GitHub
+
+Copy repository URL and run:
+
+git remote add origin https://github.com/USERNAME/myproject.git
+
+Check remote:
+
+git remote -v
+
+
+---
+
+Step 6: Push files
+
+git branch -M main
+git push -u origin main
+
+Explanation:
+
+-u sets upstream branch
+
+
+
+---
+
+3. Make a change to a file in GitHub repository and pull updated version locally
+
+Step 1: Edit file on GitHub
+
+Open repository
+
+Click README.md
+
+Edit and save changes
+
+
+
+---
+
+Step 2: Pull changes locally
+
+Inside local repository:
+
+git pull origin main
+
+Explanation:
+
+Downloads latest changes
+
+Updates local files
+
+
+
+---
+
+Step 3: Verify
+
+cat README.md
+
+
+---
+
+4. Clone a GitHub repository and verify project files
+
+Step 1: Copy repository URL
+
+Example:
+
+https://github.com/USERNAME/myproject.git
+
+
+---
+
+Step 2: Clone repository
+
+git clone https://github.com/USERNAME/myproject.git
+
+
+---
+
+Step 3: Move into folder
+
+cd myproject
+
+
+---
+
+Step 4: Verify files
+
+ls
+
+or on Windows:
+
+dir
+
+
+---
+
+5. Clone repository, create new file, and commit locally
+
+Step 1: Clone
+
+git clone https://github.com/USERNAME/myproject.git
+cd myproject
+
+
+---
+
+Step 2: Create new file
+
+echo "New File" > notes.txt
+
+
+---
+
+Step 3: Add file
+
+git add notes.txt
+
+
+---
+
+Step 4: Commit
+
+git commit -m "Added notes file"
+
+
+---
+
+Step 5: Verify commit
+
+git log
+
+
+---
+
+6. Create a new branch, make changes, and commit
+
+Step 1: Create branch
+
+git branch feature1
+
+
+---
+
+Step 2: Switch branch
+
+git checkout feature1
+
+Shortcut:
+
+git checkout -b feature1
+
+
+---
+
+Step 3: Edit file
+
+echo "Feature work" >> README.md
+
+
+---
+
+Step 4: Add and commit
+
+git add README.md
+git commit -m "Updated README in feature1 branch"
+
+
+---
+
+Step 5: Verify current branch
+
+git branch
+
+Current branch will have *
+
+
+---
+
+7. Create two branches from main and merge both
+
+Step 1: Switch to main
+
+git checkout main
+
+
+---
+
+Step 2: Create branch1
+
+git checkout -b branch1
+
+Make change:
+
+echo "Branch1 work" >> file.txt
+
+Commit:
+
+git add .
+git commit -m "Changes from branch1"
+
+
+---
+
+Step 3: Create branch2 from main
+
+git checkout main
+git checkout -b branch2
+
+Make changes:
+
+echo "Branch2 work" >> file2.txt
+
+Commit:
+
+git add .
+git commit -m "Changes from branch2"
+
+
+---
+
+Step 4: Merge branch1
+
+git checkout main
+git merge branch1
+
+
+---
+
+Step 5: Merge branch2
+
+git merge branch2
+
+
+---
+
+Step 6: Verify history
+
+git log --oneline --graph
+
+
+---
+
+8. Create feature branch, update file, commit, and merge
+
+Step 1: Create feature branch
+
+git checkout -b feature-login
+
+
+---
+
+Step 2: Update file
+
+echo "Login feature added" >> app.txt
+
+
+---
+
+Step 3: Commit
+
+git add .
+git commit -m "Added login feature"
+
+
+---
+
+Step 4: Merge into main
+
+git checkout main
+git merge feature-login
+
+
+---
+
+Step 5: Push changes
+
+git push origin main
+
+
+---
+
+9. Fork a public repository, clone fork locally, and check remotes
+
+Step 1: Fork repository
+
+Open any public repository and click Fork.
+
+Example public repository: First Contributions Repository
+
+
+---
+
+Step 2: Clone your fork
+
+git clone https://github.com/YOUR-USERNAME/first-contributions.git
+
+
+---
+
+Step 3: Enter repository
+
+cd first-contributions
+
+
+---
+
+Step 4: Check remotes
+
+git remote -v
+
+Output:
+
+origin  https://github.com/YOUR-USERNAME/first-contributions.git
+
+
+---
+
+10. Fork repository, make local change, commit, and push
+
+Step 1: Edit file
+
+echo "My contribution" >> contribution.txt
+
+
+---
+
+Step 2: Add file
+
+git add contribution.txt
+
+
+---
+
+Step 3: Commit
+
+git commit -m "Added contribution"
+
+
+---
+
+Step 4: Push to fork
+
+git push origin main
+
+
+---
+
+11. Add upstream repository and pull latest changes
+
+Step 1: Add upstream remote
+
+git remote add upstream https://github.com/ORIGINAL-OWNER/first-contributions.git
+
+
+---
+
+Step 2: Verify remotes
+
+git remote -v
+
+You will see:
+
+origin
+upstream
+
+
+---
+
+Step 3: Fetch latest changes
+
+git fetch upstream
+
+
+---
+
+Step 4: Pull updates
+
+git checkout main
+git pull upstream main
+
+
+---
+
+12. Create branch in cloned repository, make changes, merge, and push
+
+Step 1: Create branch
+
+git checkout -b update-docs
+
+
+---
+
+Step 2: Make changes
+
+echo "Documentation updated" >> README.md
+
+
+---
+
+Step 3: Commit changes
+
+git add README.md
+git commit -m "Updated documentation"
+
+
+---
+
+Step 4: Merge branch
+
+git checkout main
+git merge update-docs
+
+
+---
+
+Step 5: Push final version
+
+git push origin main
+
+
+---
+
+Important Git Commands Summary
+
+Command	Purpose
+
+git init	Initialize repository
+git clone	Copy repository
+git status	Show current status
+git add	Add files to staging
+git commit	Save changes
+git push	Upload changes
+git pull	Download latest changes
+git branch	List branches
+git checkout	Switch branch
+git merge	Merge branches
+git remote -v	Show remotes
+
+
+
+---
+
+Basic Git Workflow
+
+Working Directory
+       ↓
+git add
+       ↓
+Staging Area
+       ↓
+git commit
+       ↓
+Local Repository
+       ↓
+git push
+       ↓
+GitHub Repository
+
+
+---
+
+Common Errors and Fixes
+
+1. Permission Denied
+
+Use GitHub authentication:
+
+Personal Access Token
+
+GitHub CLI
+
+SSH keys
+
+
+GitHub Docs: GitHub Authentication Docs
+
+
+---
+
+2. Merge Conflict
+
+Git will show conflict markers:
+
+<<<<<<< HEAD
+Your code
+=======
+Other code
+>>>>>>> branch
+
+Fix manually, then:
+
+git add .
+git commit
+
+
+---
+
+3. Remote Already Exists
+
+git remote remove origin
+git remote add origin URL
